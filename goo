@@ -1,4 +1,11 @@
-https://g.co/gemini/share/533dc4f1da85
-
-
-https://g.co/gemini/share/4958215eab73
+# --- 7.0 ¡NUEVO! Asegurar que 'match_date' exista ---
+# Verifica si la columna 'date' existe y 'match_date' no.
+if 'date' in df_final.columns and 'match_date' not in df_final.columns:
+    print("Creando columna 'match_date' a partir de 'date'.")
+    df_final = df_final.withColumn("match_date", F.to_date(F.col("date")))
+    # Opcional: Si quieres eliminar 'date', descomenta la siguiente línea
+    # df_final = df_final.drop("date")
+elif 'date' not in df_final.columns and 'match_date' not in df_final.columns:
+    print("¡Advertencia! No se encontró ni 'date' ni 'match_date'. Revisa los pasos anteriores.")
+else:
+    print("'match_date' ya existe o 'date' no está presente.")
